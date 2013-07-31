@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Movie Workshop</title>
+    <link rel="stylesheet" href="www/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="www/css/styles.css" />
+</head>
+<body class="content">
+    <div class="row">
+        <div class="span6">
+            <table class="table" id="movie-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Release</th>
+                    <th>Genre</th>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="span6">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="intputId">ID</label>
+                    <div class="controls">
+                        <input type="text" id="intputId" placeholder="ID" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputTitle">Title</label>
+                    <div class="controls">
+                        <input type="text" id="inputTitle" placeholder="Title" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputRelease">Release Date</label>
+                    <div class="controls">
+                        <input type="text" id="inputRelease" placeholder="Release date" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputGenre">Genre</label>
+                    <div class="controls">
+                        <input type="text" id="inputGenre" placeholder="Genre" />
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" class="btn" id="btn-save">Add</button>
+                        <!--<button type="button" class="btn">New</button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="www/js/jquery-1.9.1.min.js"></script>
+    <script src="www/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.rowTemplate = "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>";
+
+        $('#btn-save').click(function () {
+            $.post('movie', { title: $('#inputTitle').val(), genre: $('#inputGenre').val() });
+            $('#movie-table').append(window.rowTemplate.format(['', $('#inputTitle').val(), $('#inputRelease').val(), $('#inputGenre').val()]));
+        });
+
+        // load movies at start
+        $(function() {
+            $.get('movie?format=json', function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#movie-table').append(window.rowTemplate.format([data[i].id, data[i].title, data[i].releaseYear, data[i].genre]));
+                }
+            });
+        });
+        
+        String.prototype.format = function (args) {
+            var str = this;
+            return str.replace(String.prototype.format.regex, function (item) {
+                var intVal = parseInt(item.substring(1, item.length - 1));
+                var replace;
+                if (intVal >= 0) {
+                    replace = args[intVal];
+                } else if (intVal === -1) {
+                    replace = "{";
+                } else if (intVal === -2) {
+                    replace = "}";
+                } else {
+                    replace = "";
+                }
+                return replace;
+            });
+        };
+        String.prototype.format.regex = new RegExp("{-?[0-9]+}", "g");
+    </script>
+    
+</body>
+</html>
