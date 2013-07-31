@@ -6,6 +6,9 @@ using ServiceStack.OrmLite;
 
 namespace MovieWorkshop.DAL
 {
+    /// <summary>
+    /// I received a DAL-Master achievement by writing this awesome repository :).
+    /// </summary>
     public class MovieRepository : IMovieRepository
     {
         public IDbConnectionFactory DbConnectionFactory { get; set; }

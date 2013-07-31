@@ -3,9 +3,8 @@ using ServiceStack.ServiceHost;
 
 namespace MovieWorkshop.Model
 {
-    [Route("/movie")]
-    [Route("/movie/{id}")]
-    public class Movie : IReturn<Movie>
+    // TODO: i wan't to be at /movie or /movie/1
+    public class Movie
     {
         [AutoIncrement]
         public long Id { get; set; } 

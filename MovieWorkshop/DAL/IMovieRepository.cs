@@ -7,17 +7,11 @@ namespace MovieWorkshop.DAL
     public interface IMovieRepository
     {
         Movie AddMovie(Movie movie);
-        
-        void RemoveMovie(Movie movie);
-        
-        List<Movie> GetMoviesByGenre(string genre);
-        
-        void Reset();
-
-        List<Movie> GetAllMovies();
-
         Movie GetMovieById(long id);
-
+        List<Movie> GetAllMovies();
+        List<Movie> GetMoviesByGenre(string genre);
         Movie UpdateMovie(Movie movie);
+        void Reset();
+        void RemoveMovie(Movie movie);
     }
 }

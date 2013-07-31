@@ -4,29 +4,30 @@ using Funq;
 
 using MovieWorkshop.DAL;
 using MovieWorkshop.Model;
-using MovieWorkshop.Services;
 
-using ServiceStack.Api.Swagger;
 using ServiceStack.OrmLite;
-using ServiceStack.WebHost.Endpoints;
-
-using ServiceStack.ServiceInterface.Validation;
 
 namespace MovieWorkshop
 {
-    public class AppHost : AppHostBase
+    public class AppHost
     {
-        public AppHost()
-            : base("MovieWorkshop Services", typeof(MovieService).Assembly) { }
-
-        public override void Configure(Container container)
+        public void Configure(Container container)
         {
-            // add needed plugins
-            Plugins.Add(new SwaggerFeature());
-            Plugins.Add(new ValidationFeature());
+            InitDatabase(container);
 
-            // init db stuff
-            var dbConnectionFactory = new OrmLiteConnectionFactory(HttpContext.Current.Server.MapPath("~/App_Data/db.sql"), SqliteDialect.Provider);
+            // for javascript ReleaseDate -> releaseDate
+            ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
+
+            // don't forget to register validators!
+
+            // maybe you want to try other Plugins like Swagger, RequestLogger, AuthFeature
+            // see https://github.com/ServiceStack/ServiceStack/wiki/Plugins for list of plugins
+        }
+
+        private void InitDatabase(Container container)
+        {
+            // register
+            var dbConnectionFactory = new OrmLiteConnectionFactory(HttpContext.Current.Server.MapPath("~/App_Data/movies.db"), SqliteDialect.Provider);
             container.Register<IDbConnectionFactory>(dbConnectionFactory);
             container.RegisterAutoWiredAs<MovieRepository, IMovieRepository>();
 
@@ -35,13 +36,6 @@ namespace MovieWorkshop
             {
                 db.CreateTable<Movie>();
             }
-
-            // for javascript ReleaseDate -> releaseDate
-            ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
-
-            // validator stuff
-            container.RegisterValidators(typeof(DuplicateValidator).Assembly);
-            container.RegisterAutoWiredAs<DuplicateValidator, IDuplicateValidator>();
         }
     }
 }
