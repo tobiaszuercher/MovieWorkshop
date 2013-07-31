@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWorkshop", "MovieWorkshop.csproj", "{206138C7-B75D-4E79-AD71-5B198EBC84E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWorkshop.Tests", "..\MovieWorkshop.Tests\MovieWorkshop.Tests.csproj", "{03C41079-F28A-401A-90DE-36F631A629DE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,10 +13,6 @@ Global
 		{206138C7-B75D-4E79-AD71-5B198EBC84E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{206138C7-B75D-4E79-AD71-5B198EBC84E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{206138C7-B75D-4E79-AD71-5B198EBC84E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03C41079-F28A-401A-90DE-36F631A629DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03C41079-F28A-401A-90DE-36F631A629DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03C41079-F28A-401A-90DE-36F631A629DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03C41079-F28A-401A-90DE-36F631A629DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
